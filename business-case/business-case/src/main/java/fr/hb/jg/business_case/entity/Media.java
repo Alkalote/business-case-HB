@@ -11,6 +11,16 @@ import lombok.Data;
 public class Media {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String uuid;
+
+    @ManyToOne
+    private ChargingStation chargingStation;
+
+    @Column(nullable = false)
+    private String extension;
+
+    @Column(nullable = false)
+    private String name;
+
 }

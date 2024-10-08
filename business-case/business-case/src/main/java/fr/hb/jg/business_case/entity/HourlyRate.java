@@ -13,4 +13,12 @@ public class HourlyRate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Float minimalDuration;
+
+    @Column(nullable = false)
+    private Integer value;
+
+    @ManyToOne
+    private ChargingStation chargingStation;
 }

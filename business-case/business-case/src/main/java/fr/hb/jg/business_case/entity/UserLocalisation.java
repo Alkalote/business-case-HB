@@ -13,4 +13,13 @@ public class UserLocalisation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Boolean isBilling;
+
+    @ManyToOne
+    private Localisation localisation;
+
+    @ManyToOne
+    private User user;
+
 }

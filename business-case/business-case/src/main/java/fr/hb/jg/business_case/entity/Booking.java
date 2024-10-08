@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -11,6 +13,28 @@ import lombok.Data;
 public class Booking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String uuid;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime finishedAt;
+
+    @Column(nullable = false)
+    private LocalDateTime startedAt;
+
+    @ManyToOne
+    private UserLocalisation userLocalisation;
+
+    @ManyToOne
+    private ChargingStation chargingStation;
+
+    @Column(nullable = false)
+    private String status;
+
+    @ManyToOne
+    private User user;
+
 }

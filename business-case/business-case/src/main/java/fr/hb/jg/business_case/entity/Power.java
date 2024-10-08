@@ -13,4 +13,6 @@ public class Power {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Float value;
 }
