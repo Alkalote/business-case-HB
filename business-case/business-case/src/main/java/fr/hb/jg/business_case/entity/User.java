@@ -3,16 +3,19 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Data
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -41,6 +44,9 @@ public class User {
     @Column(nullable = false)
     private String phone;
 
+    @Column(nullable = false)
+    private String roles;
+
     @OneToMany(mappedBy = "userFrom")
     private List<UserReview> reviewsWritten = new ArrayList<>();
 
@@ -61,4 +67,26 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<UserLocalisation> userLocalisations = new ArrayList<>();
+
+    public boolean isActive() {
+        return activationCode == null;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive();
+    }
+
+
+
 }

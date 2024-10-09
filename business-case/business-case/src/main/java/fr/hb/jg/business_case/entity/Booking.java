@@ -1,4 +1,5 @@
 package fr.hb.jg.business_case.entity;
+import fr.hb.jg.business_case.entity.enumerations.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,7 @@ public class Booking {
     private ChargingStation chargingStation;
 
     @Column(nullable = false)
-    private String status;
+    private Status status;
 
     @ManyToOne
     private User user;
