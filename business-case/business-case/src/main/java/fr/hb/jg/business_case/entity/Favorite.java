@@ -15,7 +15,7 @@ public class Favorite {
 
 
     @EmbeddedId
-    private UserChargingStationId userChargingStationId;
+    private UserChargingStationId id;
 
     private LocalDateTime createdAt;
 

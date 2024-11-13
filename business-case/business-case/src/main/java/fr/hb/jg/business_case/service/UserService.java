@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -43,10 +44,6 @@ public class UserService implements ServiceListInterface<User, String, UserRegis
 
         User u = new User();
 
-        if(!o.getPassword().equals(o.getPassword2())){
-            return null;
-        }
-
         u.setEmail(o.getEmail());
         u.setFirstName(o.getFirstName());
         u.setLastName(o.getLastName());
@@ -54,7 +51,7 @@ public class UserService implements ServiceListInterface<User, String, UserRegis
         u.setPhone(o.getPhone());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime t = LocalDate.parse(o.getBirthedAt(), formatter).atStartOfDay();
+        LocalDate t = LocalDate.parse(o.getBirthedAt(), formatter);
         u.setBirthedAt(t);
         u.setRoles("[\"ROLE_USER\"]");
         u.setActivationCode(UUID.randomUUID().toString());
@@ -77,7 +74,7 @@ public class UserService implements ServiceListInterface<User, String, UserRegis
         u.setPhone(o.getPhone());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime t = LocalDate.parse(o.getBirthedAt(), formatter).atStartOfDay();
+        LocalDate t = LocalDate.parse(o.getBirthedAt(), formatter);
         u.setBirthedAt(t);
 
         return userRepository.saveAndFlush(u);
@@ -121,6 +118,10 @@ public class UserService implements ServiceListInterface<User, String, UserRegis
         }
         //});
         return authorities;
+    }
+
+    public User findUser(Principal principal) {
+        return userRepository.findByEmail(principal.getName()).orElseThrow(UpgradedEntityNotFoundException::new);
     }
 
     public User findOneByEmail(String email) {

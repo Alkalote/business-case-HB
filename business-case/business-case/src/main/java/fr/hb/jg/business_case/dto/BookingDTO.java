@@ -6,16 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class BookingDTO {
 
     @NotBlank
-    private String finishedAt;
+    private LocalDateTime finishedAt;
 
     @NotBlank
-    private String startedAt;
+    private LocalDateTime startedAt;
 
     @NotNull
     private Long userLocalisationId;

@@ -1,4 +1,6 @@
 package fr.hb.jg.business_case.entity;
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.hb.jg.business_case.jsonview.JsonViews;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -19,21 +21,25 @@ public class ChargingStation {
     private String uuid;
 
     @Column
+    @JsonView(JsonViews.ChargingStationMinimalView.class)
     private Boolean onFoot;
 
     @Column
     private LocalDateTime createdAt;
 
     @ManyToOne
+    @JsonView(JsonViews.ChargingStationMinimalView.class)
     private Localisation localisation;
 
     @ManyToOne
+    @JsonView(JsonViews.ChargingStationMinimalView.class)
     private Power power;
 
     @Column
     private LocalDateTime updatedAt;
 
     @Column(nullable = false)
+    @JsonView(JsonViews.ChargingStationMinimalView.class)
     private String name;
 
     @Column(columnDefinition = "TEXT")

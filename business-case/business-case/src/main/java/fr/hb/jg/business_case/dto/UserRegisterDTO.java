@@ -26,9 +26,6 @@ public class UserRegisterDTO {
     private String password;
 
     @NotBlank
-    private String password2;
-
-    @NotBlank
     private String phone;
 
 }

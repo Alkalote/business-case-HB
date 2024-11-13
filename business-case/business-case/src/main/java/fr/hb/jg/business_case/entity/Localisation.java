@@ -1,4 +1,6 @@
 package fr.hb.jg.business_case.entity;
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.hb.jg.business_case.jsonview.JsonViews;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,7 @@ public class Localisation {
     private Long id;
 
     @Column(nullable = false)
+    @JsonView(JsonViews.ChargingStationMinimalView.class)
     private String city;
 
     @Column(nullable = false)
