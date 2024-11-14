@@ -133,10 +133,10 @@ public class InitDataLoaderConfig implements CommandLineRunner {
 
     private void createPower() {
         if(powerRepository.count()<= 10){
-            for(long i = 1L; i <= 10L; i++){
+            for(long i = 1L; i <= 20L; i++){
                 Random random = new Random();
                 Power power = new Power();
-                power.setValue(random.nextFloat(2));
+                power.setValue(Math.round((random.nextFloat(2)+1) * 100) / 100.0f);
                 powerRepository.save(power);
             }
             powerRepository.flush();

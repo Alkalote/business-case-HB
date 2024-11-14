@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -36,6 +37,7 @@ public class SecurityConfig {
             .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .csrf(AbstractHttpConfigurer::disable)
+            .cors(Customizer.withDefaults())
             .authorizeHttpRequests(auth ->
                 auth
                     .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
@@ -45,13 +47,15 @@ public class SecurityConfig {
                         AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/station"),
                         AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/localisation")
 
+
                     ).permitAll()
                     .requestMatchers(
                         AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/user/me"),
                         AntPathRequestMatcher.antMatcher(HttpMethod.POST,"/api/station"),
                         AntPathRequestMatcher.antMatcher(HttpMethod.POST,"/api/localisation"),
                         AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/station"),
-                        AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/station")
+
+                            AntPathRequestMatcher.antMatcher("/api/power/**")
 
 
                     ).authenticated()

@@ -14,7 +14,8 @@ public class Power {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(JsonViews.PowerMinimalView.class)
     private Long id;
-    @JsonView(JsonViews.ChargingStationMinimalView.class)
+    @JsonView({JsonViews.ChargingStationMinimalView.class, JsonViews.PowerMinimalView.class})
     private Float value;
 }
